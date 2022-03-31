@@ -1,7 +1,7 @@
 class Categories {
   List<Data>? _data;
 
-  CategoryModel({List<Data>? data}) {
+  Categories({List<Data>? data}) {
     if (data != null) {
       this._data = data;
     }

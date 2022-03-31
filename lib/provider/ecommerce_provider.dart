@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_test_app/model/categories.dart';
 import 'package:flutter_test_app/repository/ecommerce_repository.dart';
 
 class EcommerceProvider with ChangeNotifier{
   bool? _isUserExist = false;
-  //CategoryModel? _categoryModel;
+  Categories? _categories;
+  bool? _isLoading = true;
 
   Future<bool> isUserLogin(String phoneNumber, String password)async{
     Response response = await EcommerceRepository().isUserLogin(phoneNumber, password);
@@ -19,15 +21,18 @@ class EcommerceProvider with ChangeNotifier{
   }
 
 
-  // Future<void> foodCategory()async{
-  //   Response response = await EcommerceRepository().foodCategory();
-  //   if(response.statusCode == 200){
-  //     _categoryModel = CategoryModel.fromJson(response.data);
-  //   }
-  //   else{
-  //     print("Not found");
-  //   }
-  // }
+  Future<void> foodCategory()async{
+    Response response = await EcommerceRepository().foodCategory();
+    if(response.statusCode == 200){
+      _categories = Categories.fromJson(response.data);
+      _isLoading = true;
+    }
+    else{
+      print("Not found");
+      _isLoading = false;
+    }
+    notifyListeners();
+  }
 
 
 
@@ -39,5 +44,13 @@ class EcommerceProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  //CategoryModel get categoryModel => _categoryModel!;
+
+  Categories get categories => _categories!;
+
+  bool get isLoading => _isLoading!;
+
+  set isLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
 }

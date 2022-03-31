@@ -16,7 +16,7 @@ class EcommerceRepository {
 
   Future<Response> foodCategory()async{
     Response response = await Dio().get(
-        "http://khelaahobe.com/api/auth/flutter/categoryn",
+        "http://khelaahobe.com/api/auth/flutter/category",
         options: Options(
             headers: <String,dynamic>{
               "Authorization": "Bearer 7834|YBIH77jWKLh7Yds9oZ5hGkRMfPcaMHU3mqlE8stk",
